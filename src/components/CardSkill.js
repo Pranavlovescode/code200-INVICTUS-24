@@ -138,7 +138,7 @@ function CardSkill() {
         <div className="flex flex-wrap -m-4">
           {skills.map((skill) => (
             <div className="xl:w-1/4 md:w-1/2 p-4" key={skill.id}>
-              <Link to={`/skill/:${skill.id}`} key={skill.id}>
+              <Link to={`/skill/${skill.id}`} key={skill.id}>
                 
               
                 

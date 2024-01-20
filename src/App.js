@@ -13,13 +13,16 @@ import UserProfilePage from "./pages/UserProfilePage";
 function App() {
   return (
     <Router>
+      <Navbar/>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signin" element={<SignIn />} />
-        <Route path="/skill/id" element={<SkillPage />} />
+        <Route path="/skill/:id" element={<SkillPage />} />
         <Route path='/homemain/jobspage' element={<JobsPage />} />
-        <Route path='/homemain' element={<HomeMain/>}/>
+        <Route path='/posts/*' element={<Posts />} />
+        
+        <Route path='/homemain/*' element={<HomeMain/>}/>
         <Route path='/homemain/posts' element={<Posts/>}/>
         <Route path="/user-profile" element={<UserProfilePage/>} />
       </Routes>

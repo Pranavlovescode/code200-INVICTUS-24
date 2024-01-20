@@ -58,7 +58,7 @@ const UserProfilePage = () => {
   const location = useLocation();
   const user = location.state.user;
 
-  const [qualification, setQualification] = useState('');
+  const [qualification, setQualification] = useState("");
   const [recommendedCourses, setRecommendedCourses] = useState([]);
 
   useEffect(() => {

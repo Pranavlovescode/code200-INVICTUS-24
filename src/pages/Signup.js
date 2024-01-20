@@ -1,6 +1,3 @@
-
-
-
 import * as React from "react";
 import { useState } from "react"; // Import useState
 import { createUserWithEmailAndPassword } from "firebase/auth";
@@ -184,11 +181,14 @@ export default function Login({
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-              <Link variant="body2">
-  <button onClick={openSignin} className="mr-5 hover:text-gray-900">
-    Already Have an account? Signin
-  </button>
-</Link>
+                <Link variant="body2">
+                  <button
+                    onClick={openSignin}
+                    className="mr-5 hover:text-gray-900"
+                  >
+                    Already Have an account? Signin
+                  </button>
+                </Link>
               </Grid>
             </Grid>
           </Box>

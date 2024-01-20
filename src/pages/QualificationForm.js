@@ -30,7 +30,7 @@
 // export default QualificationForm;
 
 // components/QualificationForm.js
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const QualificationForm = ({ onSubmit, courses }) => {
   const [selectedCourse, setSelectedCourse] = useState('');

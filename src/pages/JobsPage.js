@@ -1,16 +1,24 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import Navbar from '../components/Navbar';
-import NavbarA from '../components/NavbarA';
-import Footer from '../components/Footer';
+import React from "react";
+import { useParams } from 'react-router-dom';
+
+import { Link } from "react-router-dom";
+import Navbar from "../components/Navbar";
+import NavbarA from "../components/NavbarA";
+import Footer from "../components/Footer";
+import jobs from "../data/jobs";
 
 function JobsPage() {
-  const jobs = [
-    { id: 'raclette-blueberry', category: 'CATEGORY', title: 'Raclette Blueberry Nextious Level', content: 'Photo booth fam kinfolk cold-pressed sriracha leggings jianbing microdosing tousled waistcoat.' },
-    { id: 'ennui-snackwave', category: 'CATEGORY', title: 'Ennui Snackwave Thundercats', content: 'Photo booth fam kinfolk cold-pressed sriracha leggings jianbing microdosing tousled waistcoat.' },
-    { id: 'selvage-poke', category: 'CATEGORY', title: 'Selvage Poke Waistcoat Godard', content: 'Photo booth fam kinfolk cold-pressed sriracha leggings jianbing microdosing tousled waistcoat.' },
-  ];
+  const params = useParams();
+  const id = parseInt(params.id) ;
+  // const [selected, setSelected] = useState("0");
 
+  // Find the skill with the matching id
+  const skill = jobs.find((s) => s.id === Number(id));
+
+  if (!skill) {
+    // Handle the case where the skill is not found (optional)
+    return <div>Skill not found</div>;
+  }
   return (
     <div>
       <NavbarA />
@@ -20,8 +28,12 @@ function JobsPage() {
             {jobs.map((job) => (
               <div className="p-4 lg:w-1/3" key={job.id}>
                 <div className="h-full bg-gray-100 bg-opacity-75 px-8 pt-16 pb-24 rounded-lg overflow-hidden text-center relative">
-                  <h2 className="tracking-widest text-xs title-font font-medium text-gray-400 mb-1">{job.category}</h2>
-                  <h1 className="title-font sm:text-2xl text-xl font-medium text-gray-900 mb-3">{job.title}</h1>
+                  <h2 className="tracking-widest text-xs title-font font-medium text-gray-400 mb-1">
+                    {job.category}
+                  </h2>
+                  <h1 className="title-font sm:text-2xl text-xl font-medium text-gray-900 mb-3">
+                    {job.title}
+                  </h1>
                   <p className="leading-relaxed mb-3">{job.content}</p>
                   <Link
                     to={{ pathname: `/job/${job.id}`, state: { job } }}
@@ -78,7 +90,7 @@ function JobsPage() {
           </div>
         </div>
       </section>
-      <Footer/>
+      <Footer />
     </div>
   );
 }
