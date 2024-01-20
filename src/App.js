@@ -1,24 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
+import Login from "./pages/Signup";
+import SignIn from "./pages/SignIn";
+import SkillPage from "./pages/SkillPage"; // You need to create SkillPage component
+import JobsPage from "./pages/JobsPage";
+import HomeMain from "./pages/HomeMain";
+import Posts from "./pages/Posts";
+import UserProfilePage from "./pages/UserProfilePage";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/skill/:skillId" element={<SkillPage />} />
+        <Route path='/homemain/jobspage' element={<JobsPage />} />
+        <Route path='/homemain' element={<HomeMain/>}/>
+        <Route path='/homemain/posts' element={<Posts/>}/>
+        <Route path="/user-profile" element={<UserProfilePage/>} />
+      </Routes>
+    </Router>
   );
 }
 
