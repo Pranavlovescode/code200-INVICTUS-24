@@ -47,14 +47,11 @@
 // export default UserProfilePage;
 
 // pages/UserProfilePage.js
-import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import UserProfile from "./UserProfile";
-import QualificationForm from "./QualificationForm";
-import CourseRecommendations from "../components/CourseRecommendation";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { fireDB, auth, Timestamp } from "../firebase/FirebaseConfig";
-import { collection, query, where, onSnapshot } from "firebase/firestore"; // Import Firestore functions
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import UserProfile from './UserProfile';
+import QualificationForm from './QualificationForm';
+import CourseRecommendations from '../components/CourseRecommendation';
 import courses from '../courses'; // Import courses data
 
 const UserProfilePage = () => {
