@@ -337,10 +337,14 @@ import { useState } from 'react';
 import { AiOutlineSafetyCertificate } from "react-icons/ai";
 
 const SkillPage = () => {
+
+  const { id } = useParams();
+
   // const { id } = useParams();
   const params = useParams();
   const id = parseInt(params.id) ;
   // const [selected, setSelected] = useState("0");
+
 
   // Find the skill with the matching id
   const skill = skills.find((s) => s.id === Number(id));
@@ -351,6 +355,13 @@ const SkillPage = () => {
   }
 
   return (
+
+    <div className="flex justify-center items-center h-screen">
+      <div className="bg-gray-200 p-8 rounded shadow">
+        <h2 className="text-2xl font-bold mb-4">{skill.title}</h2>
+        <p className="text-gray-700">{skill.id}</p>
+        {/* ... other details ... */}
+
     <section className="text-gray-600 body-font overflow-hidden">
       <div className="container px-5 py-24 mx-auto">
         <div className="lg:w-4/5 mx-auto flex flex-wrap">
@@ -391,6 +402,7 @@ const SkillPage = () => {
             src={skill.image}
           />
         </div>
+
       </div>
     </section>
     

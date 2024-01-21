@@ -32,9 +32,12 @@
 // components/QualificationForm.js
 import React, { useState } from "react";
 
-const QualificationForm = ({ onSubmit, courses }) => {
+
+ 
+ 
+const QualificationForm = ({ onSubmit , courses}) => {
+  const [qualification, setQualification] = useState("");
   const [selectedCourse, setSelectedCourse] = useState('');
-  const [qualification, setQualification] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();

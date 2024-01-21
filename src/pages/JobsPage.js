@@ -1,10 +1,40 @@
 import React from "react";
+
+
 import { useParams } from 'react-router-dom';
+
 
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import NavbarA from "../components/NavbarA";
 import Footer from "../components/Footer";
+
+
+function JobsPage() {
+  const jobs = [
+    {
+      id: "raclette-blueberry",
+      category: "CATEGORY",
+      title: "Raclette Blueberry Nextious Level",
+      content:
+        "Photo booth fam kinfolk cold-pressed sriracha leggings jianbing microdosing tousled waistcoat.",
+    },
+    {
+      id: "ennui-snackwave",
+      category: "CATEGORY",
+      title: "Ennui Snackwave Thundercats",
+      content:
+        "Photo booth fam kinfolk cold-pressed sriracha leggings jianbing microdosing tousled waistcoat.",
+    },
+    {
+      id: "selvage-poke",
+      category: "CATEGORY",
+      title: "Selvage Poke Waistcoat Godard",
+      content:
+        "Photo booth fam kinfolk cold-pressed sriracha leggings jianbing microdosing tousled waistcoat.",
+    },
+  ];
+=======
 import jobs from "../data/jobs";
 
 function JobsPage() {
@@ -14,6 +44,7 @@ function JobsPage() {
 
   // Find the skill with the matching id
   const skill = jobs.find((s) => s.id === Number(id));
+
 
   if (!skill) {
     // Handle the case where the skill is not found (optional)
