@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useState } from "react"; // Import useState
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth, fireDB } from "../firebase/FirebaseConfig";
 import { Timestamp, addDoc, collection } from "firebase/firestore";
 import Avatar from "@mui/material/Avatar";
@@ -30,6 +30,7 @@ export default function Login({
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [dob, setDob] = useState("");
 
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
 
@@ -41,14 +42,29 @@ export default function Login({
       email,
       password,
     });
-
+    const data ={name,email,password}
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
         password
-      );
-
+      ).then(async (userCredential)=>{
+        const user = userCredential.user
+        await updateProfile(user,{displayName:name})
+        try {
+          const res = fetch('/signup-intern',{
+            method:'POST',
+            body:JSON.stringify({data}),
+            headers:{
+              'Content-Type':'application/json'
+            }
+          })
+          const result = await res.json()
+          console.log('result:',result)
+        } catch (error) {
+          alert('Something went wrong')
+        }
+      })
       const user = {
         name: name,
         uid: userCredential.user.uid,
@@ -142,6 +158,7 @@ export default function Login({
                   required
                   fullWidth
                   id="email"
+                  type="email"
                   label="Email Address"
                   name="email"
                   autoComplete="email"
@@ -158,6 +175,19 @@ export default function Login({
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="dob"
+                  // label="Date of Birth"
+                  type="date"
+                  id="date"
+                  
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
