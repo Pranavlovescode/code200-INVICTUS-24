@@ -1,1 +1,12 @@
+<<<<<<< HEAD
 /venv
+=======
+
+
+/venv  
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+
+/node_modules
+>>>>>>> 5d3d0e7036a0836c21f5f5d3471a207490f60b81

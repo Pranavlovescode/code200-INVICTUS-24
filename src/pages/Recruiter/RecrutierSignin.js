@@ -9,14 +9,14 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
+// import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
+import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 
 
@@ -99,7 +99,9 @@ export default function RecrutierSignin({onCloseSignin,openSignin,openLogin,onCl
             backgroundColor: 'rgb(255, 255, 255)',
             borderRadius: '10px',
             padding: '20px',
-            
+            mx: "auto", // Horizontal centering
+            mt: "10%",
+            mr:"20%",
 
             position: 'absolute', // Make the container position relative
             zIndex: 1,
@@ -150,10 +152,10 @@ export default function RecrutierSignin({onCloseSignin,openSignin,openLogin,onCl
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-              <Link variant="body2">
-  <button onClick={openLogin} className="mr-5 hover:text-gray-900">
+              <Link to ='/rsignup'variant="body2">
+  {/* <button onClick={openLogin} className="mr-5 hover:text-gray-900"> */}
     Don't have an account? Sign up
-  </button>
+  
 </Link>
                 
               </Grid>

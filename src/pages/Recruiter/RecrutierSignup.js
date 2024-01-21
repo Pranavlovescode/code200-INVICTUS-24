@@ -12,7 +12,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
+// import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -21,6 +21,7 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Signin from "../SignIn";
 import RecrutierSignin from "./RecrutierSignin";
+import { Link } from "react-router-dom";
 
 const defaultTheme = createTheme();
 
@@ -99,7 +100,9 @@ export default function RecrutierSignup({
             backgroundColor: "rgb(255, 255, 255)",
             borderRadius: "10px",
             padding: "20px",
-
+            mx: "auto", // Horizontal centering
+            mt: "10%",
+            mr:"20%",
             position: "absolute", // Make the container position relative
             zIndex: 1,
           }}
@@ -185,10 +188,8 @@ export default function RecrutierSignup({
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-              <Link variant="body2">
-  <button onClick={openSignin} className="mr-5 hover:text-gray-900">
-    Already Have an account? Signin
-  </button>
+              <Link to ='/rsignin' variant="body2">
+  Already Have an account? Signin
 </Link>
               </Grid>
             </Grid>
