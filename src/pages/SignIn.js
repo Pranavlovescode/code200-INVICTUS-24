@@ -19,19 +19,14 @@ import { useNavigate } from "react-router-dom";
 
 const defaultTheme = createTheme();
 
-export default function Signin({
-  onCloseSignin,
-  openSignin,
-  openLogin,
-  onCloseLogin,
-}) {
+export default function Signin() {
   // Renamed the component to SignUp
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const [isOverlayVisible, setIsOverlayVisible] = useState(false);
+  
 
   const handleSubmit = async (event) => {
     // Updated to async
@@ -67,28 +62,24 @@ export default function Signin({
       setPassword("");
       // setLoading(false);
 
-      onCloseSignin();
+      
       navigate("/homemain");
       navigate("/user-profile", { state: { user } });
 
-      setIsOverlayVisible(false); // Hide overlay after successful signup
+      
     } catch (error) {
       console.error("SignIn error:", error);
       // setLoading(false);
     }
   };
 
-  const toggleOverlay = () => {
-    setIsOverlayVisible(!isOverlayVisible);
-  };
+ 
 
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
-        {isOverlayVisible && (
-          <div className="overlay" onClick={toggleOverlay}></div>
-        )}
+        
         <Box
           sx={{
             marginTop: 8,
@@ -154,13 +145,10 @@ export default function Signin({
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link variant="body2">
-                  <button
-                    onClick={openLogin}
-                    className="mr-5 hover:text-gray-900"
-                  >
+                <Link to={'/signup'} variant="body2">
+                 
                     Don't have an account? Sign up
-                  </button>
+                  
                 </Link>
               </Grid>
             </Grid>

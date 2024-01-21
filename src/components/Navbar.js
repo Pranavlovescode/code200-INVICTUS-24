@@ -7,26 +7,26 @@ import JobsPage from '../pages/JobsPage';
 
 
 function Navbar() {
-  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
-  const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
+  // const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  // const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
 
-  const openSigninModal = () => {
-    setIsLoginModalOpen(true);
-    setIsSignUpModalOpen(false); // Close SignUp modal if open
-  };
+  // const openSigninModal = () => {
+  //   setIsLoginModalOpen(true);
+  //   setIsSignUpModalOpen(false); // Close SignUp modal if open
+  // };
 
-  const closeSigninModal = () => {
-    setIsLoginModalOpen(false);
-  };
+  // const closeSigninModal = () => {
+  //   setIsLoginModalOpen(false);
+  // };
 
-  const openSignUpModal = () => {
-    setIsSignUpModalOpen(true);
-    setIsLoginModalOpen(false); // Close Login modal if open
-  };
+  // const openSignUpModal = () => {
+  //   setIsSignUpModalOpen(true);
+  //   setIsLoginModalOpen(false); // Close Login modal if open
+  // };
 
-  const closeSignUpModal = () => {
-    setIsSignUpModalOpen(false);
-  };
+  // const closeSignUpModal = () => {
+  //   setIsSignUpModalOpen(false);
+  // };
 
   return (
     <header className="text-gray-600 body-font">
@@ -41,12 +41,12 @@ function Navbar() {
           <Link to="/" className="mr-5 hover:text-gray-900">
             Home
           </Link>
-          <button onClick={openSignUpModal} className="mr-5 hover:text-gray-900">
+          <Link to={'/signup'} className="mr-5 hover:text-gray-900">
             Signup
-          </button>
-          <button onClick={openSigninModal} className="mr-5 hover:text-gray-900">
+          </Link>
+          <Link to={'/login'} className="mr-5 hover:text-gray-900">
             Signin
-          </button>
+          </Link>
           {/* <Link to="jobspage">
           <button onClick={openSigninModal} className="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">
             JobsPage
@@ -54,20 +54,20 @@ function Navbar() {
           </button>
         </Link> */}
         </nav>
-        <Link to="signin">
-          <button onClick={openSigninModal} className="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">
+        <Link to="/signin">
+          <button className="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">
            Recruiter
             <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="w-4 h-4 ml-1" viewBox="0 0 24 24">
               <path d="M5 12h14M12 5l7 7-7 7"></path>
             </svg>
           </button>
         </Link>
-        {isSignUpModalOpen && (
+        {/* {isSignUpModalOpen && (
           <SignUp onCloseSignup={closeSignUpModal} openSignin={openSigninModal} />
         )}
         {isLoginModalOpen && (
           <SignIn onCloseSignin={closeSigninModal} openLogin={openSignUpModal} />
-        )}
+        )} */}
       </div>
     </header>
   );

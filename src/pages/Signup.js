@@ -17,56 +17,68 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Signin from "./SignIn";
+import { useNavigate } from "react-router-dom";
 
 const defaultTheme = createTheme();
 
-export default function Login({
-  onCloseSignin,
-  openSignin,
-  openLogin,
-  onCloseLogin,
-}) {
+export default function Login() {
   // Renamed the component to SignUp
-  const [name, setName] = useState("");
+  const [fname, setfName] = useState("");
+  const [lname, setlName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [dob, setDob] = useState("");
-
-  const [isOverlayVisible, setIsOverlayVisible] = useState(false);
+  const [phone, setPhone] = useState("");
+  const [clg, setClg] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     // Updated to async
     event.preventDefault();
     console.log({
-      name,
+      fname,
+      lname,
       email,
       password,
+      phone,
+      clg,
+      dob,
     });
-    const data ={name,email,password}
+    const data = { fname, lname, email, password, phone, dob, clg };
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
         password
-      ).then(async (userCredential)=>{
-        const user = userCredential.user
-        await updateProfile(user,{displayName:name})
+      ).then(async (userCredential) => {
+        const user = userCredential.user;
+        await updateProfile(user, { displayName: fname });
         try {
-          const res = fetch('/signup-intern',{
-            method:'POST',
-            body:JSON.stringify({data}),
-            headers:{
-              'Content-Type':'application/json'
-            }
-          })
-          const result = await res.json()
-          console.log('result:',result)
+          console.log('test')
+          const res = await fetch("/signup-intern", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ data }),
+          });
+          const result = await res.json();
+          console.log("result:", result);
+          alert("Signup Successfull")
+          setfName("");
+          setlName("");
+          setEmail("");
+          setPassword("");
+          setDob("");
+          setPhone("");
+          setClg("");
+          navigate("/homemain");
         } catch (error) {
-          alert('Something went wrong')
+          alert("Something went wrong");
         }
-      })
+      });
       const user = {
-        name: name,
+        name: fname,
         uid: userCredential.user.uid,
         email: userCredential.user.email,
         time: Timestamp.now(),
@@ -75,31 +87,19 @@ export default function Login({
       const userRef = collection(fireDB, "users");
       await addDoc(userRef, user);
       console.log("Signup successful:", user);
-      setName("");
-      setEmail("");
-      setPassword("");
+
       // setLoading(false);
-
-      setIsOverlayVisible(false);
-
-      openSignin(); // Hide overlay after successful signup
     } catch (error) {
       console.error("Signup error:", error);
       // setLoading(false);
     }
   };
 
-  const toggleOverlay = () => {
-    setIsOverlayVisible(!isOverlayVisible);
-  };
-
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
-        {isOverlayVisible && (
-          <div className="overlay" onClick={toggleOverlay}></div>
-        )}
+
         <Box
           sx={{
             marginTop: 8,
@@ -138,8 +138,8 @@ export default function Login({
                   id="firstName"
                   label="First Name"
                   autoFocus
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  value={fname}
+                  onChange={(e) => setfName(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -150,6 +150,8 @@ export default function Login({
                   label="Last Name"
                   name="lastName"
                   autoComplete="family-name"
+                  value={lname}
+                  onChange={(e) => setlName(e.target.value)}
                   // You can add similar value and onChange for Last Name if needed
                 />
               </Grid>
@@ -183,13 +185,34 @@ export default function Login({
                 <TextField
                   required
                   fullWidth
+                  name="phoneNumber"
+                  label="Phone No."
+                  id="phoneNumber"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
                   name="dob"
-                  // label="Date of Birth"
                   type="date"
                   id="date"
-                  
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  value={dob}
+                  onChange={(e) => setDob(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="clg"
+                  label="College Name"
+                  type="text"
+                  id="clg"
+                  value={clg}
+                  onChange={(e) => setClg(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -211,13 +234,8 @@ export default function Login({
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link variant="body2">
-                  <button
-                    onClick={openSignin}
-                    className="mr-5 hover:text-gray-900"
-                  >
-                    Already Have an account? Signin
-                  </button>
+                <Link to={"/login"} variant="body2">
+                  Already Have an account? Signin
                 </Link>
               </Grid>
             </Grid>
