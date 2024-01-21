@@ -23,28 +23,36 @@ const defaultTheme = createTheme();
 
 export default function Login() {
   // Renamed the component to SignUp
-  const [fname, setfName] = useState("");
-  const [lname, setlName] = useState("");
+  const [firstName, setfirstName] = useState("");
+  const [lastName, setlastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [dob, setDob] = useState("");
-  const [phone, setPhone] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [clg, setClg] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     // Updated to async
     event.preventDefault();
-    console.log({
-      fname,
-      lname,
-      email,
-      password,
-      phone,
-      clg,
-      dob,
-    });
-    const data = { fname, lname, email, password, phone, dob, clg };
+    const data = new FormData();
+    data.append("firstName", firstName);
+    data.append("lastName", lastName);
+    data.append("email", email);
+    data.append("password", password);
+    data.append("phoneNumber", phoneNumber);
+    data.append("dob", dob);
+    data.append("clg", clg);
+    // console.log({
+    //   fname,
+    //   lname,
+    //   email,
+    //   password,
+    //   phone,
+    //   clg,
+    //   dob,
+    // });
+    // const data = { firstName, lastName, email, password, phoneNumber, dob, clg };
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
@@ -52,7 +60,7 @@ export default function Login() {
         password
       ).then(async (userCredential) => {
         const user = userCredential.user;
-        await updateProfile(user, { displayName: fname });
+        await updateProfile(user, { displayName: firstName });
         try {
           console.log('test')
           const res = await fetch("/signup-intern", {
@@ -60,17 +68,17 @@ export default function Login() {
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({ data }),
+            body: data,
           });
           const result = await res.json();
           console.log("result:", result);
           alert("Signup Successfull")
-          setfName("");
-          setlName("");
+          setfirstName("");
+          setlastName("");
           setEmail("");
           setPassword("");
           setDob("");
-          setPhone("");
+          setPhoneNumber("");
           setClg("");
           navigate("/homemain");
         } catch (error) {
@@ -78,9 +86,11 @@ export default function Login() {
         }
       });
       const user = {
-        name: fname,
+        firstName: firstName,
+        lastName: lastName,
         uid: userCredential.user.uid,
-        email: userCredential.user.email,
+        email: userCredential.user.email,   
+        dob:dob,     
         time: Timestamp.now(),
       };
 
@@ -133,25 +143,26 @@ export default function Login() {
                 <TextField
                   autoComplete="given-name"
                   name="firstName"
+                  htmlFor="firstName"
                   required
                   fullWidth
                   id="firstName"
                   label="First Name"
                   autoFocus
-                  value={fname}
-                  onChange={(e) => setfName(e.target.value)}
+                  value={firstName}
+                  onChange={(e) => setfirstName(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
                   required
                   fullWidth
+                  htmlFor="lastName"
                   id="lastName"
                   label="Last Name"
-                  name="lastName"
-                  autoComplete="family-name"
-                  value={lname}
-                  onChange={(e) => setlName(e.target.value)}
+                  name="lastName"                  
+                  value={lastName}
+                  onChange={(e) => setlastName(e.target.value)}
                   // You can add similar value and onChange for Last Name if needed
                 />
               </Grid>
@@ -160,6 +171,7 @@ export default function Login() {
                   required
                   fullWidth
                   id="email"
+                  htmlFor="email"
                   type="email"
                   label="Email Address"
                   name="email"
@@ -174,6 +186,7 @@ export default function Login() {
                   fullWidth
                   name="password"
                   label="Password"
+                  htmlFor="password"
                   type="password"
                   id="password"
                   autoComplete="new-password"
@@ -186,10 +199,11 @@ export default function Login() {
                   required
                   fullWidth
                   name="phoneNumber"
+                  htmlFor="phoneNumber"
                   label="Phone No."
                   id="phoneNumber"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
+                  value={phoneNumber}
+                  onChange={(e) => setPhoneNumber(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -197,8 +211,9 @@ export default function Login() {
                   required
                   fullWidth
                   name="dob"
+                  htmlFor="dob"
                   type="date"
-                  id="date"
+                  id="dob"
                   value={dob}
                   onChange={(e) => setDob(e.target.value)}
                 />
@@ -209,6 +224,7 @@ export default function Login() {
                   fullWidth
                   name="clg"
                   label="College Name"
+                  htmlFor="clg"
                   type="text"
                   id="clg"
                   value={clg}

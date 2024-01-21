@@ -3,8 +3,10 @@ from pymongo import MongoClient
 from flask_bcrypt import Bcrypt
 from datetime import datetime
 import pandas as pd
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 client = MongoClient('mongodb+srv://SAPP_SERVER:CCKB_2004@sapp.bba6dy5.mongodb.net/?retryWrites=true&w=majority') #connection string
 db = client['InternData'] #Database name
@@ -25,24 +27,30 @@ def pranav():
 @app.route('/signup-intern',methods=["POST"])
 def intern():
     if request.method == 'POST':
-        data = request.get_json()        
-        firstName = data['firstName']
-        lastName = data['lastName']
-        email = data['email']
-        password = data['password']
-        hashPassword = bcrypt.generate_password_hash(password).decode('utf-8')
-        phoneNumber = data['phoneNumber']
-        dob = data['dob']
-        clg = data['clg']
+        firstName = request.form.get('firstName')
+        lastName = request.form.get('lastName')
+        email = request.form.get('email')
+       
+        password = request.form.get('password')
+
+        if password:
+            hashPassword = bcrypt.generate_password_hash(password).decode('utf-8')
+        else:
+            return jsonify({"error": "Password must be non-empty"})
+        
+        phoneNumber = request.form.get('phoneNumber')
+        dob = request.form.get('dob')
+        clg = request.form.get('clg')
+
         result = db.signupData.insert_one({
-            'firstName':firstName,
-            'lastName':lastName,
-            'email':email,
-            'password':hashPassword,
-            'phoneNumber':phoneNumber,
-            'dob':dob,
-            'clg':clg,
-            'date':datetime.today()
+            'firstName': firstName,
+            'lastName': lastName,
+            'email': email,
+            'password': hashPassword,
+            'phoneNumber': phoneNumber,
+            'dob': dob,
+            'clg': clg,
+            'date': datetime.today()
         })
         print(result)
         return str(result)
@@ -53,10 +61,10 @@ def intern():
 @app.route('/carrier-form',methods=["POST"])
 def carrier():
     if request.method == 'POST':
-        data = request.get_json()        
-        skillset = data['skillset']
-        self_rating = data['self_rating']
-        company = data['conpany']
+             
+        skillset = request.form['skillset']
+        self_rating = request.form['self_rating']
+        company = request.form['conpany']
         
         result = db.signupData.find_one({
             'skillset':skillset,
@@ -71,14 +79,13 @@ def carrier():
 
 @app.route('/company-info',methods=['POST'])
 def companyData():    
-    if request.method=='POST':
-        res = request.get_json()
-        cname = res['cname']
-        cpass = res['cpass']
-        cemail = res['cemail']
+    if request.method=='POST':        
+        cname = request.form['cname']
+        cpass = request.form['cpass']
+        cemail = request.form['cemail']
         hashPass = bcrypt.generate_password_hash(cpass).decode('utf-8')
-        cadd=res['cadd']
-        cphone=res['cphone']
+        cadd=request.form['cadd']
+        cphone=request.form['cphone']
         result = db.companySignUpData.insert_one({
             'cname':cname,
             'cemail':cemail,
@@ -109,7 +116,33 @@ def search():
     print(filtered_df)
     return(filtered_df)
     
+# 
+@app.route('/job-application',methods=['POST'])
+def apply():
+    if request.method=='POST':        
+        
+        job_title = request.form['job_title']
+        job_type = request.form['job_type']        
+        vaccancy = request.form['vaccancy']
+        salary = request.form['salary']
+        exp = request.form['exp']
+        location = request.form['location']
+        desc = request.form['desc']
+        result = db.companySignUpData.insert_one({
+            
+            'job_title':job_title,
+            'job_type':job_type,
+            'vaccancy':vaccancy,
+            'salary':salary, 
+            'exp':exp,
+            'location':location,
+            'desc':desc,
+            'date':datetime.today()           
+        })
+        print(result)
+        return str(result)   
 
+    
 
 if __name__=='__main__':
     app.run(debug=True)
