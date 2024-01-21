@@ -35,7 +35,7 @@ export default function Login() {
   const handleSubmit = async (event) => {
     // Updated to async
     event.preventDefault();
-    const data = new FormData();
+    const data = new URLSearchParams();
     data.append("firstName", firstName);
     data.append("lastName", lastName);
     data.append("email", email);
@@ -66,7 +66,7 @@ export default function Login() {
           const res = await fetch("/signup-intern", {
             method: "POST",
             headers: {
-              "Content-Type": "application/json",
+              'Content-Type': 'application/x-www-form-urlencoded',
             },
             body: data,
           });
