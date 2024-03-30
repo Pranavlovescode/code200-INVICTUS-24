@@ -8,7 +8,11 @@ import SkillPage from "./pages/SkillPage"; // You need to create SkillPage compo
 import JobsPage from "./pages/JobsPage";
 import HomeMain from "./pages/HomeMain";
 import Posts from "./pages/Posts";
-
+import UserProfilePage from "./pages/UserProfilePage";
+import RecrutierSignup from './pages/Recruiter/RecrutierSignup';
+import RecrutierSignin from "./pages/Recruiter/RecrutierSignin";
+import RHome from "./pages/Recruiter/RHome";
+import UploadJob from "./pages/Recruiter/UploadJobs";
 
 function App() {
   return (
@@ -20,9 +24,14 @@ function App() {
         <Route path="/signup" element={<SignIn />} />
         <Route path="/skill/:id" element={<SkillPage />} />
         <Route path='/homemain/jobspage' element={<JobsPage />} />
-        <Route path='/posts/*' element={<Posts />} />        
-        <Route path='/homemain' element={<HomeMain/>}/>
+        <Route path='/posts/*' element={<Posts />} />
+        <Route path="/rsignup" element={<RecrutierSignup />} />
+        <Route path="/rsignin" element={<RecrutierSignin />} />
+        <Route path="/rhome" element={<RHome/>} />
+        <Route path="/uploadjob" element={<UploadJob/>} />
+        <Route path='/homemain/*' element={<HomeMain/>}/>
         <Route path='/homemain/posts' element={<Posts/>}/>
+        <Route path="/user-profile" element={<UserProfilePage/>} />
         
       </Routes>
     </Router>
